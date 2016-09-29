@@ -1,0 +1,45 @@
+---
+- name: Add the OS specific varibles
+  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
+- block:
+  - debug:
+      msg: "Stop & Disable another NTP daemons"
+  - service:
+      name: "{{ item }}"
+      enabled: "no"
+      state: "stopped"
+    with_items:
+      - "openntpd"
+      - "ntpd"
+  rescue:
+  - service:
+      name: "{{ item }}"
+      enabled: "no"
+      state: "stopped"
+    with_items:
+      - "systemd-timesyncd"
+  always:
+    - debug:
+        msg: "Previous services may be failed, because is not detected. Is normal."
+- name: Remove ntpd files
+  file:
+    path: "{{ '/etc/' + item }}"
+    state: "absent"
+  with_items:
+  - "ntpd.conf"
+  - "ntp.conf"
+- name: Make chrony conf
+  template:
+    src: "chrony.j2"
+    dest: "/etc/chrony.conf"
+    owner: "root"
+    group: "root"
+    force: "yes"
+    mode: "0644"
+  notify:
+    - Restart chronyd
+- name: Start chronyd
+  service:
+    name: "{{ chrony_service }}"
+    enabled: "yes"
+    state: "started"

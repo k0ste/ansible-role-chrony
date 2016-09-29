@@ -1,0 +1,20 @@
+## chrony.conf
+# {{ ansible_managed }}
+# Do not edit manually
+
+{% for s in chrony_servers %}
+server {{ s }} iburst
+{% endfor %}
+{% if chrony_allow is defined %}
+{% for a in chrony_allow %}
+allow {{ a }}
+{% endfor %}
+{% endif %}
+
+driftfile /var/lib/chrony/drift
+pidfile /var/run/chronyd.pid
+keyfile /etc/chrony.keys
+makestep 10 1
+maxupdateskew 5
+rtconutc
+rtcsync
