@@ -2,19 +2,30 @@
 # {{ ansible_managed }}
 # Do not edit manually
 
-{% for s in chrony_servers %}
-server {{ s }} iburst
+{% for c in hostvars[inventory_hostname]['chrony'] %}
+{% for cs in c.servers %}
+{{ 'server ' + cs.addr + ' ' + cs.opt }}
 {% endfor %}
-{% if chrony_allow is defined %}
-{% for a in chrony_allow %}
-allow {{ a }}
+{% if c.allow is defined %}
+{% for ca in c.allow %}
+{{ 'allow ' + ca }}
 {% endfor %}
 {% endif %}
-
-driftfile /var/lib/chrony/drift
-pidfile /var/run/chronyd.pid
-keyfile /etc/chrony.keys
-makestep 10 1
-maxupdateskew 5
-rtconutc
-rtcsync
+{% if c.keyfile is defined and c.keyfile != '' %}
+{{ 'keyfile ' + c.keyfile }}
+{% endif %}
+{% if c.makestep is defined %}
+{% for cm in c.makestep %}
+{{ 'makestep ' + cm.threshold|string + ' ' + cm.limit|string }}
+{% endfor %}
+{% endif %}
+{% if c.maxupdateskew is defined and c.maxupdateskew != '' %}
+{{ 'maxupdateskew ' + c.maxupdateskew|string }}
+{% endif %}
+{% if c.rtconutc is defined and c.rtconutc == 'true' %}
+{{ 'rtconutc' }}
+{% endif %}
+{% if c.rtcsync is defined and c.rtcsync == 'true' %}
+{{ 'rtcsync' }}
+{% endif %}
+{% endfor %}

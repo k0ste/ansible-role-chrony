@@ -1,2 +1,2 @@
 ---
-chrony_service: chronyd
+chrony_service: 'chronyd'

@@ -1,3 +1,6 @@
 ---
-- name: Restart chronyd
-  service: name='{{ chrony_service }}' state='restarted' enabled='yes'
+- name: Restart chrony daemon
+  service:
+    name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"
+    state: "restarted"
+    enabled: "yes"

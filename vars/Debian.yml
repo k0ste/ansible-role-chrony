@@ -1,2 +1,2 @@
 ---
-chrony_service: ???
+chrony_service: 'chrony'
