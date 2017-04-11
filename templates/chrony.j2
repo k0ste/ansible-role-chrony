@@ -1,6 +1,6 @@
-## chrony.conf
-# {{ ansible_managed }}
-# Do not edit manually
+{{ '## chrony.conf' }}
+{{ '# ' + ansible_managed }}
+{{ '# Do not edit manually' }}
 
 {% for c in hostvars[inventory_hostname]['chrony'] %}
 {% for cs in c.servers %}
@@ -8,7 +8,9 @@
 {% endfor %}
 {% if c.allow is defined %}
 {% for ca in c.allow %}
+{% if ca | ipaddr() %}
 {{ 'allow ' + ca }}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if c.keyfile is defined and c.keyfile != '' %}
@@ -16,16 +18,33 @@
 {% endif %}
 {% if c.makestep is defined %}
 {% for cm in c.makestep %}
-{{ 'makestep ' + cm.threshold|string + ' ' + cm.limit|string }}
+{{ 'makestep ' + cm.threshold | string + ' ' + cm.limit | string }}
 {% endfor %}
 {% endif %}
 {% if c.maxupdateskew is defined and c.maxupdateskew != '' %}
-{{ 'maxupdateskew ' + c.maxupdateskew|string }}
+{{ 'maxupdateskew ' + c.maxupdateskew | string }}
 {% endif %}
 {% if c.rtconutc is defined and c.rtconutc == 'true' %}
 {{ 'rtconutc' }}
 {% endif %}
 {% if c.rtcsync is defined and c.rtcsync == 'true' %}
 {{ 'rtcsync' }}
+{% endif %}
+{% if c.cmd is defined %}
+{% for cc in c.cmd %}
+{% if cc.bind is defined and cc.bind != '' %}
+{{ 'bindcmdaddress ' + cc.bind }}
+{% endif %}
+{% if cc.port is defined and cc.port != '' %}
+{{ 'cmdport ' + cc.port | string }}
+{% endif %}
+{% if cc.allow is defined %}
+{% for ca in cc.allow %}
+{% if ca | ipaddr() %}
+{{ 'cmdallow ' + ca }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
 {% endif %}
 {% endfor %}

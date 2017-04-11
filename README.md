@@ -1,12 +1,13 @@
-ansible-role-chrony
-==========================
+chrony
+========
 
 Role for deploy chrony - a versatile implementation of the NTP.
 
-Ansible versions
---------------------
+Requirements for usage
+------------------------
 
-Role is adapted for Ansible 2.0, should work on 1.9.
+* Ansible 2.0;
+* [python-netaddr](//docs.ansible.com/ansible/playbooks_filters_ipaddr.html);
 
 Extra
 --------
@@ -63,4 +64,9 @@ chrony:
   - 198.18.0.0/15
   - 172.16.0.0/12
   - 10.0.0.0/8
+  cmd: # Command and monitoring access
+  - bind: '0.0.0.0'
+    port: '323'
+    allow:
+    - 172.16.16.0/24
 ```
