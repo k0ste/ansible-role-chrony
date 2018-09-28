@@ -1,2 +1,4 @@
 ---
-chrony_service: 'chrony'
+chrony_package: 'chrony'
+chrony_service: 'chronyd'
+chrony_conf_dest: '/etc'

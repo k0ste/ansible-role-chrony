@@ -1,0 +1,79 @@
+{% if h.minpoll is defined and h.minpoll != '' %}
+{{ ' ' ~ 'minpoll' ~ ' ' ~ h.minpoll -}}
+{% endif %}
+{% if h.maxpoll is defined and h.maxpoll != '' %}
+{{ ' ' ~ 'maxpoll' ~ ' ' ~ h.maxpoll -}}
+{% endif %}
+{% if h.iburst is defined and h.iburst == 'true' %}
+{{ ' ' + 'iburst' -}}
+{% endif %}
+{% if h.burst is defined and h.burst == 'true' %}
+{{ ' ' + 'burst' -}}
+{% endif %}
+{% if h.key is defined and h.key != '' %}
+{{ ' ' ~ 'key' ~ ' ' ~ h.key -}}
+{% endif %}
+{% if h.maxdelay is defined and h.maxdelay != '' %}
+{{ ' ' ~ 'maxdelay' ~ ' ' ~ h.maxdelay -}}
+{% endif %}
+{% if h.maxdelayratio is defined and h.maxdelayratio != '' %}
+{{ ' ' ~ 'maxdelayratio' ~ ' ' ~ h.maxdelayratio -}}
+{% endif %}
+{% if h.maxdelaydevratio is defined and h.maxdelaydevratio != '' %}
+{{ ' ' ~ 'maxdelaydevratio' ~ ' ' ~ h.maxdelaydevratio -}}
+{% endif %}
+{% if h.mindelay is defined and h.mindelay != '' %}
+{{ ' ' ~ 'mindelay' ~ ' ' ~ h.mindelay -}}
+{% endif %}
+{% if h.asymmetry is defined and h.asymmetry != '' %}
+{{ ' ' ~ 'asymmetry' ~ ' ' ~ h.asymmetry -}}
+{% endif %}
+{% if h.offset is defined and h.offset != '' %}
+{{ ' ' ~ 'offset' ~ ' ' ~ h.offset -}}
+{% endif %}
+{% if h.minsamples is defined and h.minsamples != '' %}
+{{ ' ' ~ 'minsamples' ~ ' ' ~ h.minsamples -}}
+{% endif %}
+{% if h.maxsamples is defined and h.maxsamples != '' %}
+{{ ' ' ~ 'maxsamples' ~ ' ' ~ h.maxsamples -}}
+{% endif %}
+{% if h.filter is defined and h.filter != '' %}
+{{ ' ' ~ 'filter' ~ ' ' ~ h.filter -}}
+{% endif %}
+{% if h.offline is defined and h.offline == 'true' %}
+{{ ' ' + 'offline' -}}
+{% endif %}
+{% if h.auto_offline is defined and h.auto_offline == 'true' %}
+{{ ' ' + 'auto_offline' -}}
+{% endif %}
+{% if h.prefer is defined and h.prefer == 'true' %}
+{{ ' ' + 'prefer' -}}
+{% endif %}
+{% if h.noselect is defined and h.noselect == 'true' %}
+{{ ' ' + 'noselect' -}}
+{% endif %}
+{% if h.trust is defined and h.trust == 'true' %}
+{{ ' ' + 'trust' -}}
+{% endif %}
+{% if h.xleave is defined and h.xleave != '' %}
+{{ ' ' ~ 'xleave' ~ ' ' ~ h.xleave -}}
+{% endif %}
+{% if h.polltarget is defined and h.polltarget != '' %}
+{{ ' ' ~ 'polltarget' ~ ' ' ~ h.polltarget -}}
+{% endif %}
+{% if h.port is defined and h.port != '' %}
+{{ ' ' ~ 'port' ~ ' ' ~ h.port -}}
+{% endif %}
+{% if h.presend is defined and h.presend != '' %}
+{{ ' ' ~ 'presend' ~ ' ' ~ h.presend -}}
+{% endif %}
+{% if h.minstratum is defined and h.minstratum != '' %}
+{{ ' ' ~ 'minstratum' ~ ' ' ~ h.minstratum -}}
+{% endif %}
+{% if h.version is defined and h.version != '' %}
+{{ ' ' ~ 'version' ~ ' ' ~ h.version -}}
+{% endif %}
+{# chrony pool only #}
+{% if h.maxsources is defined and h.maxsources != '' %}
+{{ ' ' ~ 'maxsources' ~ ' ' ~ h.maxsources -}}
+{% endif %}

@@ -1,35 +1,16 @@
 ---
-- name: Add the OS specific varibles
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
-- name: Disable another NTP services
-  service:
-    name: "{{ item }}"
-    state: "stopped"
-    enabled: "no"
-  register: "disable_result"
-  failed_when: "disable_result|failed and ('find' not in disable_result.msg and 'found' not in disable_result.msg)"
-  with_items:
-    - 'openntpd'
-    - 'ntpd'
-    - 'systemd-timesyncd'
-- name: Remove another NTP configurations
-  file:
-    path: "{{ '/etc/' + item }}"
-    state: "absent"
-  with_items:
-  - "ntpd.conf"
-  - "ntp.conf"
-- name: Make chrony conf
-  template:
-    src: "chrony.j2"
-    dest: "/etc/chrony.conf"
-    owner: "root"
-    group: "root"
-    force: "yes"
-    mode: "0644"
-  notify: "Restart chrony daemon"
-- name: Start chronyd
-  service:
-    name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"
-    enabled: "yes"
-    state: "started"
+- import_tasks: pre_requisite.yml
+- include_tasks: packages.yml
+  when:
+  - "hostvars[inventory_hostname]['chrony'] is defined"
+  - "hostvars[inventory_hostname]['chrony'] != ''"
+  - "hostvars[inventory_hostname]['chrony'] |
+     json_query(vars['chrony_install_package']) is defined"
+  - "hostvars[inventory_hostname]['chrony'] |
+     json_query(vars['chrony_install_package']) == 'true'"
+  vars:
+    chrony_install_package: "[] | map(&install_package || 'false', @) | [0]"
+- include_tasks: deploy_chrony.yml
+  when:
+  - "hostvars[inventory_hostname]['chrony_instance_settings'] is defined"
+  - "hostvars[inventory_hostname]['chrony_instance_settings'] != []"

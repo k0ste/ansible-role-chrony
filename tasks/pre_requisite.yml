@@ -1,0 +1,8 @@
+---
+- name: chrony | Add the OS specific variables
+  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] +
+                    '.yml' }}"
+- name: chrony | Set facts about chrony role
+  set_fact:
+    chrony_instance_settings: "{{ hostvars[inventory_hostname]['chrony'] |
+      json_query('[].settings[]') }}"

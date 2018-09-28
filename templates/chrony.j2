@@ -2,49 +2,43 @@
 {{ '# ' + ansible_managed }}
 {{ '# Do not edit manually' }}
 
-{% for c in hostvars[inventory_hostname]['chrony'] %}
-{% for cs in c.servers %}
-{{ 'server ' + cs.addr + ' ' + cs.opt }}
-{% endfor %}
-{% if c.allow is defined %}
-{% for ca in c.allow %}
-{% if ca | ipaddr() %}
-{{ 'allow ' + ca }}
+{% for c in chrony_instance_settings %}
+{% if c.pool is defined and c.pool != '' %}
+{% for h in c.pool %}
+{% if h.address is defined and ((h.address | ipaddr('address')) or
+                                (h.address | urlsplit('path'))) %}
+{{ 'pool' + ' ' + h.address -}}
+{% include 'chrony_host.j2' %}
+{{ '' }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.keyfile is defined and c.keyfile != '' %}
-{{ 'keyfile ' + c.keyfile }}
-{% endif %}
-{% if c.makestep is defined %}
-{% for cm in c.makestep %}
-{{ 'makestep ' + cm.threshold | string + ' ' + cm.limit | string }}
-{% endfor %}
-{% endif %}
-{% if c.maxupdateskew is defined and c.maxupdateskew != '' %}
-{{ 'maxupdateskew ' + c.maxupdateskew | string }}
-{% endif %}
-{% if c.rtconutc is defined and c.rtconutc == 'true' %}
-{{ 'rtconutc' }}
-{% endif %}
-{% if c.rtcsync is defined and c.rtcsync == 'true' %}
-{{ 'rtcsync' }}
-{% endif %}
-{% if c.cmd is defined %}
-{% for cc in c.cmd %}
-{% if cc.bind is defined and cc.bind != '' %}
-{{ 'bindcmdaddress ' + cc.bind }}
-{% endif %}
-{% if cc.port is defined and cc.port != '' %}
-{{ 'cmdport ' + cc.port | string }}
-{% endif %}
-{% if cc.allow is defined %}
-{% for ca in cc.allow %}
-{% if ca | ipaddr() %}
-{{ 'cmdallow ' + ca }}
+{% if c.server is defined and c.server != '' %}
+{% for h in c.server %}
+{% if h.address is defined and ((h.address | ipaddr('address')) or
+                                (h.address | urlsplit('path'))) %}
+{{ 'server' + ' ' + h.address -}}
+{% include 'chrony_host.j2' %}
+{{ '' }}
 {% endif %}
 {% endfor %}
 {% endif %}
+{% if c.peer is defined and c.peer != '' %}
+{% for h in c.peer %}
+{% if h.address is defined and ((h.address | ipaddr('address')) or
+                                (h.address | urlsplit('path'))) %}
+{{ 'peer' + ' ' + h.address -}}
+{% include 'chrony_host.j2' %}
+{{ '' }}
+{% endif %}
 {% endfor %}
 {% endif %}
+{% if c.refclock is defined and c.refclock != '' %}
+{% for r in c.refclock %}
+{% include 'chrony_refclock.j2' %}
+{{ '' }}
+{% endfor %}
+{% endif %}
+{% include 'chrony_options.j2' %}
+{% include 'chrony_hwtimestamp.j2' %}
 {% endfor %}

@@ -1,0 +1,25 @@
+---
+- name: chrony | Deploy chrony configuration
+  template:
+    src: "chrony.j2"
+    dest: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] + '/' +
+              'chrony.conf' }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  when:
+  - "vars['chrony_instance_settings'] is defined"
+  - "vars['chrony_instance_settings'] != []"
+  notify:
+  - "Restart chrony"
+- name: chrony | Enable chrony service
+  systemd:
+    name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"
+    enabled: "yes"
+  when:
+  - "hostvars[inventory_hostname]['chrony'] |
+     json_query(vars['chrony_enable']) is defined"
+  - "hostvars[inventory_hostname]['chrony'] |
+     json_query(vars['chrony_enable']) == 'true'"
+  vars:
+    chrony_enable: "[] | map(&enable || 'false', @) | [0]"
