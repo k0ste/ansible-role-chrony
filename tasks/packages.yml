@@ -1,9 +1,20 @@
 ---
 - name: chrony | Install the required packages in Redhat derivatives
-  yum:
-    name: "{{ hostvars[inventory_hostname]['chrony_package'] }}"
-    state: "present"
-    update_cache: "yes"
+  block:
+  - name: chrony | Install the required packages for RedHat via yum
+    yum:
+      name: "{{ hostvars[inventory_hostname]['chrony_package'] }}"
+      state: "present"
+      update_cache: "yes"
+    when:
+    - "hostvars[inventory_hostname]['ansible_pkg_mgr'] == 'yum'"
+  - name: chrony | Install the required packages for RedHat via dnf
+    dnf:
+      name: "{{ hostvars[inventory_hostname]['chrony_package'] }}"
+      state: "present"
+      update_cache: "yes"
+    when:
+    - "hostvars[inventory_hostname]['ansible_pkg_mgr'] == 'dnf'"
   when:
   - "hostvars[inventory_hostname]['ansible_os_family'] == 'RedHat'"
 - name: chrony | Install the required packages in Debian derivatives

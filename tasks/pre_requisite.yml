@@ -6,3 +6,6 @@
   set_fact:
     chrony_instance_settings: "{{ hostvars[inventory_hostname]['chrony'] |
       json_query('[].settings[]') }}"
+  when:
+  - "hostvars[inventory_hostname]['chrony'] is defined"
+  - "hostvars[inventory_hostname]['chrony'] != ''"

@@ -7,9 +7,6 @@
     owner: "root"
     group: "root"
     mode: "0644"
-  when:
-  - "vars['chrony_instance_settings'] is defined"
-  - "vars['chrony_instance_settings'] != []"
   notify:
   - "Restart chrony"
 - name: chrony | Enable chrony service
