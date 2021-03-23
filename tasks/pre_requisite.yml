@@ -1,11 +1,27 @@
 ---
 - name: chrony | Add the OS specific variables
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] +
-                    '.yml' }}"
+  ansible.builtin.include_vars:
+    file: "{{
+      hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: chrony | Set facts about chrony role
-  set_fact:
+  ansible.builtin.set_fact:
     chrony_instance_settings: "{{ hostvars[inventory_hostname]['chrony'] |
-      json_query('[].settings[]') }}"
+      community.general.json_query('[].settings[]') }}"
+    chrony_package_state: "{{ hostvars[inventory_hostname]['chrony'] |
+      community.general.json_query('[].package_state | [0]') }}"
+- name: chrony | Assert that chrony package state in valid value
+  ansible.builtin.assert:
+    that:
+      - "vars['chrony_package_state'] in ['present', 'latest']"
+    msg: "'package_state' must be in 'present' or 'latest'."
+    quiet: "true"
   when:
-  - "hostvars[inventory_hostname]['chrony'] is defined"
-  - "hostvars[inventory_hostname]['chrony'] != ''"
+    - "vars['chrony_package_state'] is defined"
+    - "vars['chrony_package_state'] != ''"
+- name: chrony | Create catalogs
+  ansible.builtin.file:
+    path: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"

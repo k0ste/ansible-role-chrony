@@ -1,30 +1,30 @@
 {% if c.hwtimestamp is defined and c.hwtimestamp != '' %}
 {% for ch in c.hwtimestamp %}
 {% if ch.interface is defined %}
-{{ 'hwtimestamp' ~ ' ' ~ ch.interface -}}
+{{ ' hwtimestamp ' ~ ch.interface -}}
 {% if ch.minpoll is defined and ch.minpoll != '' %}
-{{ ' ' ~ 'minpoll' ~ ' ' ~ ch.minpoll -}}
+{{ ' minpoll ' ~ ch.minpoll -}}
 {% endif %}
 {% if ch.minsamples is defined and ch.minsamples != '' %}
-{{ ' ' ~ 'minsamples' ~ ' ' ~ ch.minsamples -}}
+{{ ' minsamples ' ~ ch.minsamples -}}
 {% endif %}
 {% if ch.maxsamples is defined and ch.maxsamples != '' %}
-{{ ' ' ~ 'maxsamples' ~ ' ' ~ ch.maxsamples -}}
+{{ ' maxsamples ' ~ ch.maxsamples -}}
 {% endif %}
 {% if ch.precision is defined and ch.precision != '' %}
-{{ ' ' ~ 'precision' ~ ' ' ~ ch.precision -}}
+{{ ' precision ' ~ ch.precision -}}
 {% endif %}
 {% if ch.txcomp is defined and ch.txcomp != '' %}
-{{ ' ' ~ 'txcomp' ~ ' ' ~ ch.txcomp -}}
+{{ ' txcomp ' ~ ch.txcomp -}}
 {% endif %}
 {% if ch.rxcomp is defined and ch.rxcomp != '' %}
-{{ ' ' ~ 'rxcomp' ~ ' ' ~ ch.rxcomp -}}
+{{ ' rxcomp ' ~ ch.rxcomp -}}
 {% endif %}
 {% if ch.nocrossts is defined and ch.nocrossts == 'true' %}
-{{ ' ' ~ 'nocrossts' -}}
+{{ ' nocrossts' -}}
 {% endif %}
 {% if ch.rxfilter is defined and ch.rxfilter in ['all', 'ntp', 'none'] %}
-{{ ' ' ~ 'rxfilter' ~ ' ' ~ ch.rxfilter -}}
+{{ ' rxfilter ' ~ ch.rxfilter -}}
 {% endif %}
 {% endif %}
 {{ '' }}

@@ -1,5 +1,5 @@
 {% if r.driver is defined and r.driver in ['PPS', 'SHM', 'SOCK', 'PHC'] %}
-{{ 'refclock' ~ ' ' ~ r.driver -}}
+{{ 'refclock ' ~ r.driver -}}
 {% endif %}
 {% if r.path is defined and r.path != '' %}
 {{ ' ' ~ r.path -}}
@@ -11,66 +11,66 @@
 {% endif %}
 {% endif %}
 {% if r.poll is defined and r.poll != '' %}
-{{ ' ' ~ 'poll' ~ ' ' ~ r.poll -}}
+{{ ' poll ' ~ r.poll -}}
 {% endif %}
 {% if r.dpoll is defined and r.dpoll != '' %}
-{{ ' ' ~ 'dpoll' ~ ' ' ~ r.dpoll -}}
+{{ ' dpoll ' ~ r.dpoll -}}
 {% endif %}
 {% if r.refid is defined and r.refid != '' %}
-{{ ' ' ~ 'refid' ~ ' ' ~ r.refid -}}
+{{ ' refid ' ~ r.refid -}}
 {% endif %}
 {% if r.lock is defined and r.lock != '' %}
-{{ ' ' ~ 'lock' ~ ' ' ~ r.lock -}}
+{{ ' lock ' ~ r.lock -}}
 {% endif %}
 {% if r.rate is defined and r.rate != '' %}
-{{ ' ' ~ 'rate' ~ ' ' ~ r.rate -}}
+{{ ' rate ' ~ r.rate -}}
 {% endif %}
 {% if r.maxlockage is defined and r.maxlockage != '' %}
-{{ ' ' ~ 'maxlockage' ~ ' ' ~ r.maxlockage -}}
+{{ ' maxlockage ' ~ r.maxlockage -}}
 {% endif %}
 {% if r.width is defined and r.width != '' %}
-{{ ' ' ~ 'width' ~ ' ' ~ r.width -}}
+{{ ' width ' ~ r.width -}}
 {% endif %}
 {% if r.pps is defined and r.pps == 'true' %}
-{{ ' ' ~ 'pps' -}}
+{{ ' pps' -}}
 {% endif %}
 {% if r.offset is defined and r.offset != '' %}
-{{ ' ' ~ 'offset' ~ ' ' ~ r.offset -}}
+{{ ' offset ' ~ r.offset -}}
 {% endif %}
 {% if r.delay is defined and r.delay != '' %}
-{{ ' ' ~ 'delay' ~ ' ' ~ r.delay -}}
+{{ ' delay ' ~ r.delay -}}
 {% endif %}
 {% if r.stratum is defined and r.stratum != '' %}
-{{ ' ' ~ 'stratum' ~ ' ' ~ r.stratum -}}
+{{ ' stratum ' ~ r.stratum -}}
 {% endif %}
 {% if r.precision is defined and r.precision != '' %}
-{{ ' ' ~ 'precision' ~ ' ' ~ r.precision -}}
+{{ ' precision ' ~ r.precision -}}
 {% endif %}
 {% if r.maxdispersion is defined and r.maxdispersion != '' %}
-{{ ' ' ~ 'maxdispersion' ~ ' ' ~ r.maxdispersion -}}
+{{ ' maxdispersion ' ~ r.maxdispersion -}}
 {% endif %}
 {% if r.filter is defined and r.filter != '' %}
-{{ ' ' ~ 'filter' ~ ' ' ~ r.filter -}}
+{{ ' filter ' ~ r.filter -}}
 {% endif %}
 {% if r.prefer is defined and r.prefer == 'true' %}
-{{ ' ' ~ 'prefer' -}}
+{{ ' prefer' -}}
 {% endif %}
 {% if r.noselect is defined and r.noselect == 'true' %}
-{{ ' ' ~ 'noselect' -}}
+{{ ' noselect' -}}
 {% endif %}
 {% if r.trust is defined and r.trust == 'true' %}
-{{ ' ' ~ 'trust' -}}
+{{ ' trust' -}}
 {% endif %}
 {% if r.require is defined and r.require == 'true' %}
-{{ ' ' ~ 'require' -}}
+{{ ' require' -}}
 {% endif %}
 {% if r.tai is defined and r.tai == 'true' %}
-{{ ' ' ~ 'tai' -}}
+{{ ' tai' -}}
 {% endif %}
 {% if r.minsamples is defined and r.minsamples != '' %}
-{{ ' ' ~ 'minsamples' ~ ' ' ~ r.minsamples -}}
+{{ ' minsamples ' ~ r.minsamples -}}
 {% endif %}
 {% if r.maxsamples is defined and r.maxsamples != '' %}
-{{ ' ' ~ 'maxsamples' ~ ' ' ~ r.maxsamples -}}
+{{ ' maxsamples ' ~ r.maxsamples -}}
 {% endif %}
 {% endif %}

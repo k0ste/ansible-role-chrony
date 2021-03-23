@@ -1,14 +1,14 @@
 ---
 - name: Restart chrony
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"
     state: "restarted"
   when:
-  - "hostvars[inventory_hostname]['chrony'] is defined"
-  - "hostvars[inventory_hostname]['chrony'] != ''"
-  - "hostvars[inventory_hostname]['chrony'] |
-     json_query(vars['chrony_restart']) is defined"
-  - "hostvars[inventory_hostname]['chrony'] |
-     json_query(vars['chrony_restart']) == 'true'"
+    - "hostvars[inventory_hostname]['chrony'] is defined"
+    - "hostvars[inventory_hostname]['chrony'] != ''"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_restart']) is defined"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_restart']) == 'true'"
   vars:
     chrony_restart: "[] | map(&restart || 'false', @) | [0]"

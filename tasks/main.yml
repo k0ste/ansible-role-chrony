@@ -2,15 +2,15 @@
 - import_tasks: "pre_requisite.yml"
 - include_tasks: "packages.yml"
   when:
-  - "hostvars[inventory_hostname]['chrony'] is defined"
-  - "hostvars[inventory_hostname]['chrony'] != ''"
-  - "hostvars[inventory_hostname]['chrony'] |
-     json_query(vars['chrony_install_package']) is defined"
-  - "hostvars[inventory_hostname]['chrony'] |
-     json_query(vars['chrony_install_package']) == 'true'"
+    - "hostvars[inventory_hostname]['chrony'] is defined"
+    - "hostvars[inventory_hostname]['chrony'] != ''"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_install_package']) is defined"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_install_package']) == 'true'"
   vars:
     chrony_install_package: "[] | map(&install_package || 'false', @) | [0]"
 - include_tasks: "deploy_chrony.yml"
   when:
-  - "vars['chrony_instance_settings'] is defined"
-  - "vars['chrony_instance_settings'] != []"
+    - "vars['chrony_instance_settings'] is defined"
+    - "vars['chrony_instance_settings'] != ''"

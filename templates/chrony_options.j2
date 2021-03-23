@@ -2,7 +2,7 @@
 {% for ci in c.initstepslew %}
 {% if (ci.threshold is defined and ci.threshold != '') and
       (ci.address is defined and ci.address != '') %}
-{{ 'initstepslew' ~ ' ' ~ ci.threshold -}}
+{{ 'initstepslew ' ~ ci.threshold -}}
 {% if ci.address is string %}
 {{ ' ' ~ ci.address }}
 {% elif ci.address is sequence %}
@@ -15,59 +15,60 @@
 {{ 'manual' }}
 {% endif %}
 {% if c.acquisitionport is defined and c.acquisitionport != '' %}
-{{ 'acquisitionport' ~ ' ' ~ c.acquisitionport }}
+{{ 'acquisitionport ' ~ c.acquisitionport }}
 {% endif %}
-{% if c.bindacqaddress is defined and c.bindacqaddress | ipaddr('address') %}
-{{ 'bindacqaddress' ~ ' ' ~ c.bindacqaddress }}
+{% if c.bindacqaddress is defined and c.bindacqaddress |
+  ansible.netcommon.ipaddr('address') %}
+{{ 'bindacqaddress ' ~ c.bindacqaddress }}
 {% endif %}
 {% if c.dumpdir is defined and c.dumpdir != '' %}
-{{ 'dumpdir' ~ ' ' ~ c.dumpdir }}
+{{ 'dumpdir ' ~ c.dumpdir }}
 {% endif %}
 {% if c.maxsamples is defined and c.maxsamples != '' %}
-{{ 'maxsamples' ~ ' ' ~ c.maxsamples }}
+{{ 'maxsamples ' ~ c.maxsamples }}
 {% endif %}
 {% if c.minsamples is defined and c.minsamples != '' %}
-{{ 'minsamples' ~ ' ' ~ c.minsamples }}
+{{ 'minsamples ' ~ c.minsamples }}
 {% endif %}
 {% if c.combinelimit is defined and c.combinelimit != '' %}
-{{ 'combinelimit' ~ ' ' ~ c.combinelimit }}
+{{ 'combinelimit ' ~ c.combinelimit }}
 {% endif %}
 {% if c.maxdistance is defined and c.maxdistance != '' %}
-{{ 'maxdistance' ~ ' ' ~ c.maxdistance }}
+{{ 'maxdistance ' ~ c.maxdistance }}
 {% endif %}
 {% if c.maxjitter is defined and c.maxjitter != '' %}
-{{ 'maxjitter' ~ ' ' ~ c.maxjitter }}
+{{ 'maxjitter ' ~ c.maxjitter }}
 {% endif %}
 {% if c.minsources is defined and c.minsources != '' %}
-{{ 'minsources' ~ ' ' ~ c.minsources }}
+{{ 'minsources ' ~ c.minsources }}
 {% endif %}
 {% if c.reselectdist is defined and c.reselectdist != '' %}
-{{ 'reselectdist' ~ ' ' ~ c.reselectdist }}
+{{ 'reselectdist ' ~ c.reselectdist }}
 {% endif %}
 {% if c.stratumweight is defined and c.stratumweight != '' %}
-{{ 'stratumweight' ~ ' ' ~ c.stratumweight }}
+{{ 'stratumweight ' ~ c.stratumweight }}
 {% endif %}
 {% if c.corrtimeratio is defined and c.corrtimeratio != '' %}
-{{ 'corrtimeratio' ~ ' ' ~ c.corrtimeratio }}
+{{ 'corrtimeratio ' ~ c.corrtimeratio }}
 {% endif %}
 {% if c.driftfile is defined and c.driftfile != '' %}
-{{ 'driftfile' ~ ' ' ~ c.driftfile }}
+{{ 'driftfile ' ~ c.driftfile }}
 {% endif %}
 {% if c.fallbackdrift is defined and c.fallbackdrift != '' %}
-{{ 'fallbackdrift' ~ ' ' ~ c.fallbackdrift }}
+{{ 'fallbackdrift ' ~ c.fallbackdrift }}
 {% endif %}
 {% if c.leapsecmode is defined and c.leapsecmode in ['system', 'step', 'slew',
-                                                     'ignore'] %}
-{{ 'leapsecmode' ~ ' ' ~ c.leapsecmode }}
+  'ignore'] %}
+{{ 'leapsecmode ' ~ c.leapsecmode }}
 {% endif %}
 {% if c.leapsectz is defined and c.leapsectz != '' %}
-{{ 'leapsectz' ~ ' ' ~ c.leapsectz }}
+{{ 'leapsectz ' ~ c.leapsectz }}
 {% endif %}
 {% if c.makestep is defined and c.makestep != '' %}
 {% for cm in c.makestep %}
-{% if (cm.threshold is defined and cm.threshold != '') and
-      (cm.limit is defined and cm.limit != '') %}
-{{ 'makestep' ~ ' ' ~ cm.threshold ~ ' ' ~ cm.limit }}
+{% if (cm.threshold is defined and cm.threshold != '') and (cm.limit is defined
+  and cm.limit != '') %}
+{{ 'makestep ' ~ cm.threshold ~ ' ' ~ cm.limit }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -76,21 +77,21 @@
 {% if (cm.offset is defined and cm.offset != '') and
       (cm.start is defined and cm.start != '') and
       (cm.ignore is defined and cm.ignore != '') %}
-{{ 'maxchange' ~ ' ' ~ cm.offset ~ ' ' ~ cm.start ~ ' ' ~ cm.ignore }}
+{{ 'maxchange ' ~ cm.offset ~ ' ' ~ cm.start ~ ' ' ~ cm.ignore }}
 {% endif %}
 {% endfor %}
 {% endif %}
 {% if c.maxclockerror is defined and c.maxclockerror != '' %}
-{{ 'maxclockerror' ~ ' ' ~ c.maxclockerror }}
+{{ 'maxclockerror ' ~ c.maxclockerror }}
 {% endif %}
 {% if c.maxdrift is defined and c.maxdrift != '' %}
-{{ 'maxdrift' ~ ' ' ~ c.maxdrift }}
+{{ 'maxdrift ' ~ c.maxdrift }}
 {% endif %}
 {% if c.maxupdateskew is defined and c.maxupdateskew != '' %}
-{{ 'maxupdateskew' ~ ' ' ~ c.maxupdateskew }}
+{{ 'maxupdateskew ' ~ c.maxupdateskew }}
 {% endif %}
 {% if c.maxslewrate is defined and c.maxslewrate != '' %}
-{{ 'maxslewrate' ~ ' ' ~ c.maxslewrate }}
+{{ 'maxslewrate ' ~ c.maxslewrate }}
 {% endif %}
 {% if c.access_list is defined and c.access_list != '' %}
 {% for ca in c.access_list %}
@@ -101,13 +102,13 @@
 {% endfor %}
 {% endif %}
 {% if c.bindaddress is defined and c.bindaddress != '' %}
-{{ 'bindaddress' ~ ' ' ~ c.bindaddress }}
+{{ 'bindaddress ' ~ c.bindaddress }}
 {% endif %}
 {% if c.broadcast is defined and c.broadcast != '' %}
 {% for cb in c.broadcast %}
-{% if (cb.interval is defined and cb.interval != '') and
-      (cb.address is defined and cb.address | ipaddr('address')) %}
-{{ 'broadcast' ~ ' ' ~ cb.interval ~ ' ' ~ cb.address -}}
+{% if (cb.interval is defined and cb.interval != '') and (cb.address is defined
+  and cb.address | ansible.netcommon.ipaddr('address')) %}
+{{ 'broadcast ' ~ cb.interval ~ ' ' ~ cb.address -}}
 {% if cb.port is defined and cb.port != '' %}
 {{ ' ' ~ cb.port -}}
 {% endif %}
@@ -116,7 +117,7 @@
 {% endfor %}
 {% endif %}
 {% if c.clientloglimit is defined and c.clientloglimit != '' %}
-{{ 'clientloglimit' ~ ' ' ~ c.clientloglimit }}
+{{ 'clientloglimit ' ~ c.clientloglimit }}
 {% endif %}
 {% if c.noclientlog is defined and c.noclientlog == 'true' %}
 {{ 'noclientlog' }}
@@ -125,10 +126,10 @@
 {% for cl in c.local %}
 {{ 'local' -}}
 {% if cl.stratum is defined and cl.stratum != '' %}
-{{ ' ' ~ 'stratum' ~ ' ' ~ cl.stratum -}}
+{{ ' ' ~ 'stratum ' ~ cl.stratum -}}
 {% endif %}
 {% if cl.distance is defined and cl.distance != '' %}
-{{ ' ' ~ 'distance' ~ ' ' ~ cl.distance -}}
+{{ ' ' ~ 'distance ' ~ cl.distance -}}
 {% endif %}
 {% if cl.orphan is defined and cl.orphan == 'true' %}
 {{ ' ' ~ 'orphan' -}}
@@ -137,31 +138,31 @@
 {% endfor %}
 {% endif %}
 {% if c.ntpsigndsocket is defined and c.ntpsigndsocket != '' %}
-{{ 'ntpsigndsocket' ~ ' ' ~ c.ntpsigndsocket }}
+{{ 'ntpsigndsocket ' ~ c.ntpsigndsocket }}
 {% endif %}
 {% if c.port is defined and c.port != '' %}
-{{ 'port' ~ ' ' ~ c.port }}
+{{ 'port ' ~ c.port }}
 {% endif %}
 {% if c.ratelimit is defined and c.ratelimit != '' %}
 {% for cr in c.ratelimit %}
 {{ 'ratelimit' -}}
 {% if cr.interval is defined and cr.interval != '' %}
-{{ ' ' ~ 'interval' ~ ' ' ~ cr.interval -}}
+{{ ' ' ~ 'interval ' ~ cr.interval -}}
 {% endif %}
 {% if cr.burst is defined and cr.burst != '' %}
-{{ ' ' ~ 'burst' ~ ' ' ~ cr.burst -}}
+{{ ' ' ~ 'burst ' ~ cr.burst -}}
 {% endif %}
 {% if cr.leak is defined and cr.leak != '' %}
-{{ ' ' ~ 'leak' ~ ' ' ~ cr.leak -}}
+{{ ' ' ~ 'leak ' ~ cr.leak -}}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
 {% if c.smoothtime is defined and c.smoothtime != '' %}
 {% for cs in c.smoothtime %}
-{% if (cs.max_freq is defined and cs.max_freq != '') and
-      (cs.max_wander is defined and cs.max_wander != '') %}
-{{ 'smoothtime' ~ ' ' ~ cs.max_freq ~ ' ' ~ cs.max_wander -}}
+{% if (cs.max_freq is defined and cs.max_freq != '') and (cs.max_wander is
+  defined and cs.max_wander != '') %}
+{{ 'smoothtime ' ~ cs.max_freq ~ ' ' ~ cs.max_wander -}}
 {% if cs.leaponly is defined and cs.leaponly == 'true' %}
 {{ ' ' ~ 'leaponly' -}}
 {% endif %}
@@ -170,12 +171,13 @@
 {% endfor %}
 {% endif %}
 {% if c.bindcmdaddress is defined and c.bindcmdaddress != '' %}
-{% if c.bindcmdaddress is string and c.bindcmdaddress | ipaddr('host') %}
-{{ 'bindcmdaddress' ~ ' ' ~ c.bindcmdaddress }}
+{% if c.bindcmdaddress is string and c.bindcmdaddress |
+  ansible.netcommon.ipaddr('host') %}
+{{ 'bindcmdaddress ' ~ c.bindcmdaddress }}
 {% elif c.bindcmdaddress is sequence %}
 {% for cb in c.bindcmdaddress %}
-{% if cb | ipaddr('host') %}
-{{ 'bindcmdaddress' ~ ' ' ~ cb }}
+{% if cb | ansible.netcommon.ipaddr('host') %}
+{{ 'bindcmdaddress ' ~ cb }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -189,34 +191,34 @@
 {% endfor %}
 {% endif %}
 {% if c.cmdport is defined and c.cmdport != '' %}
-{{ 'cmdport' ~ ' ' ~ c.cmdport }}
+{{ 'cmdport ' ~ c.cmdport }}
 {% endif %}
 {% if c.cmdratelimit is defined and c.cmdratelimit != '' %}
 {% for cr in c.cmdratelimit %}
 {{ 'ratelimit' -}}
 {% if cr.interval is defined and cr.interval != '' %}
-{{ ' ' ~ 'interval' ~ ' ' ~ cr.interval -}}
+{{ ' ' ~ 'interval ' ~ cr.interval -}}
 {% endif %}
 {% if cr.burst is defined and cr.burst != '' %}
-{{ ' ' ~ 'burst' ~ ' ' ~ cr.burst -}}
+{{ ' ' ~ 'burst ' ~ cr.burst -}}
 {% endif %}
 {% if cr.leak is defined and cr.leak != '' %}
-{{ ' ' ~ 'leak' ~ ' ' ~ cr.leak -}}
+{{ ' ' ~ 'leak ' ~ cr.leak -}}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
 {% if c.hwclockfile is defined and c.hwclockfile != '' %}
-{{ 'hwclockfile' ~ ' ' ~ c.hwclockfile }}
+{{ 'hwclockfile ' ~ c.hwclockfile }}
 {% endif %}
 {% if c.rtcautotrim is defined and c.rtcautotrim != '' %}
-{{ 'rtcautotrim' ~ ' ' ~ c.rtcautotrim }}
+{{ 'rtcautotrim ' ~ c.rtcautotrim }}
 {% endif %}
 {% if c.rtcdevice is defined and c.rtcdevice != '' %}
-{{ 'rtcdevice' ~ ' ' ~ c.rtcdevice }}
+{{ 'rtcdevice ' ~ c.rtcdevice }}
 {% endif %}
 {% if c.rtcfile is defined and c.rtcfile != '' %}
-{{ 'rtcfile' ~ ' ' ~ c.rtcfile }}
+{{ 'rtcfile ' ~ c.rtcfile }}
 {% endif %}
 {% if c.rtconutc is defined and c.rtconutc == 'true' %}
 {{ 'rtconutc' }}
@@ -228,26 +230,26 @@
 {{ 'log' -}}
 {% for cl in c.log %}
 {% if cl != '' and cl in ['rawmeasurements', 'measurements', 'statistics',
-                          'tracking', 'rtc', 'refclocks', 'tempcomp'] %}
+  'tracking', 'rtc', 'refclocks', 'tempcomp'] %}
 {{ ' ' ~ cl -}}
 {% endif %}
 {% endfor %}
 {{ '' }}
 {% endif %}
 {% if c.logbanner is defined and c.logbanner != '' %}
-{{ 'logbanner' ~ ' ' ~ c.logbanner }}
+{{ 'logbanner ' ~ c.logbanner }}
 {% endif %}
 {% if c.logchange is defined and c.logchange != '' %}
-{{ 'logchange' ~ ' ' ~ c.logchange }}
+{{ 'logchange ' ~ c.logchange }}
 {% endif %}
 {% if c.logdir is defined and c.logdir != '' %}
-{{ 'logdir' ~ ' ' ~ c.logdir }}
+{{ 'logdir ' ~ c.logdir }}
 {% endif %}
 {% if c.mailonchange is defined and c.mailonchange != '' %}
 {% for cm in c.mailonchange %}
-{% if cm.address is defined and
-      cm.address is match('^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$') %}
-{{ 'mailonchange' ~ ' ' ~ cm.address -}}
+{% if cm.address is defined and cm.address is
+  match('^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$') %}
+{{ 'mailonchange ' ~ cm.address -}}
 {% if cm.threshold is defined and cm.threshold != '' %}
 {{ ' ' ~ cm.threshold -}}
 {% endif %}
@@ -256,17 +258,17 @@
 {{ '' }}
 {% endif %}
 {% if c.keyfile is defined and c.keyfile != '' %}
-{{ 'keyfile' ~ ' ' ~ c.keyfile }}
+{{ 'keyfile ' ~ c.keyfile }}
 {% endif %}
 {% if c.lock_all is defined and c.lock_all == 'true' %}
 {{ 'lock_all' }}
 {% endif %}
 {% if c.pidfile is defined and c.pidfile != '' %}
-{{ 'pidfile' ~ ' ' ~ c.pidfile }}
+{{ 'pidfile ' ~ c.pidfile }}
 {% endif %}
 {% if c.sched_priority is defined and c.sched_priority != '' %}
-{{ 'sched_priority' ~ ' ' ~ c.sched_priority }}
+{{ 'sched_priority ' ~ c.sched_priority }}
 {% endif %}
 {% if c.user is defined and c.user != '' %}
-{{ 'user' ~ ' ' ~ c.user }}
+{{ 'user ' ~ c.user }}
 {% endif %}

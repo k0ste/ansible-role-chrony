@@ -4,19 +4,22 @@ Role for deploy chrony - a versatile implementation of the NTP.
 
 ## Requirements
 
-* Ansible 2.5+;
+* Ansible 3.0.0+;
 
 ## Example configuration
 
 ```yaml
 ---
 chrony:
-# Enable chrony service or not.
+# Enable chrony service or not
 - enable: 'true'
-# Restart chrony service after deploy or not.
+# Restart chrony service after deploy or not
   restart: 'true'
-# Install chrony package or not.
+# Install chrony package or not
   install_package: 'true'
+# 'present' (do nothing if package is already installed) or 'latest' (always
+# upgrade to last version)
+  package_state: 'latest'
   settings:
 # The server directive specifies an NTP server which can be used as a time
 # source. The client-server relationship is strictly hierarchical - a client

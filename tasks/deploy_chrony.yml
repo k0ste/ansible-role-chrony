@@ -1,22 +1,24 @@
 ---
 - name: chrony | Deploy chrony configuration
-  template:
+  ansible.builtin.template:
     src: "chrony.j2"
-    dest: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] + '/' +
-              'chrony.conf' }}"
+    dest: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] +
+      '/chrony.conf' }}"
     owner: "root"
     group: "root"
     mode: "0644"
   notify:
-  - "Restart chrony"
+    - "Restart chrony"
 - name: chrony | Enable chrony service
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"
     enabled: "yes"
   when:
-  - "hostvars[inventory_hostname]['chrony'] |
-     json_query(vars['chrony_enable']) is defined"
-  - "hostvars[inventory_hostname]['chrony'] |
-     json_query(vars['chrony_enable']) == 'true'"
+    - "hostvars[inventory_hostname]['chrony'] is defined"
+    - "hostvars[inventory_hostname]['chrony'] != ''"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_enable']) is defined"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_enable']) == 'true'"
   vars:
     chrony_enable: "[] | map(&enable || 'false', @) | [0]"
