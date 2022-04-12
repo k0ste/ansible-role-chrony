@@ -18,7 +18,7 @@
 {{ 'acquisitionport ' ~ c.acquisitionport }}
 {% endif %}
 {% if c.bindacqaddress is defined and c.bindacqaddress |
-  ansible.netcommon.ipaddr('address') %}
+  ansible.utils.ipaddr('address') %}
 {{ 'bindacqaddress ' ~ c.bindacqaddress }}
 {% endif %}
 {% if c.dumpdir is defined and c.dumpdir != '' %}
@@ -107,7 +107,7 @@
 {% if c.broadcast is defined and c.broadcast != '' %}
 {% for cb in c.broadcast %}
 {% if (cb.interval is defined and cb.interval != '') and (cb.address is defined
-  and cb.address | ansible.netcommon.ipaddr('address')) %}
+  and cb.address | ansible.utils.ipaddr('address')) %}
 {{ 'broadcast ' ~ cb.interval ~ ' ' ~ cb.address -}}
 {% if cb.port is defined and cb.port != '' %}
 {{ ' ' ~ cb.port -}}
@@ -172,11 +172,11 @@
 {% endif %}
 {% if c.bindcmdaddress is defined and c.bindcmdaddress != '' %}
 {% if c.bindcmdaddress is string and c.bindcmdaddress |
-  ansible.netcommon.ipaddr('host') %}
+  ansible.utils.ipaddr('host') %}
 {{ 'bindcmdaddress ' ~ c.bindcmdaddress }}
 {% elif c.bindcmdaddress is sequence %}
 {% for cb in c.bindcmdaddress %}
-{% if cb | ansible.netcommon.ipaddr('host') %}
+{% if cb | ansible.utils.ipaddr('host') %}
 {{ 'bindcmdaddress ' ~ cb }}
 {% endif %}
 {% endfor %}

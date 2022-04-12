@@ -6,7 +6,7 @@
 {% if c.pool is defined and c.pool != '' %}
 {% for h in c.pool %}
 {% if h.address is defined and ((h.address |
-  ansible.netcommon.ipaddr('address')) or (h.address | urlsplit('path'))) %}
+  ansible.utils.ipaddr('address')) or (h.address | urlsplit('path'))) %}
 {{ 'pool ' +  h.address -}}
 {% include 'chrony_host.j2' %}
 {{ '' }}
@@ -16,7 +16,7 @@
 {% if c.server is defined and c.server != '' %}
 {% for h in c.server %}
 {% if h.address is defined and ((h.address |
-  ansible.netcommon.ipaddr('address')) or (h.address | urlsplit('path'))) %}
+  ansible.utils.ipaddr('address')) or (h.address | urlsplit('path'))) %}
 {{ 'server ' +  h.address -}}
 {% include 'chrony_host.j2' %}
 {{ '' }}
@@ -26,7 +26,7 @@
 {% if c.peer is defined and c.peer != '' %}
 {% for h in c.peer %}
 {% if h.address is defined and ((h.address |
-  ansible.netcommon.ipaddr('address')) or (h.address | urlsplit('path'))) %}
+  ansible.utils.ipaddr('address')) or (h.address | urlsplit('path'))) %}
 {{ 'peer ' +  h.address -}}
 {% include 'chrony_host.j2' %}
 {{ '' }}
