@@ -1,5 +1,5 @@
 ---
-- name: chrony | Deploy chrony configuration
+- name: "chrony | Deploy chrony configuration"
   ansible.builtin.template:
     src: "chrony.j2"
     dest: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] +
@@ -9,7 +9,7 @@
     mode: "0644"
   notify:
     - "Restart chrony"
-- name: chrony | Enable chrony service
+- name: "chrony | Enable chrony service"
   ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"
     enabled: "yes"

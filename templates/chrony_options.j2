@@ -1,234 +1,235 @@
-{% if c.initstepslew is defined and c.initstepslew != '' %}
-{% for ci in c.initstepslew %}
-{% if (ci.threshold is defined and ci.threshold != '') and
-      (ci.address is defined and ci.address != '') %}
-{{ 'initstepslew ' ~ ci.threshold -}}
-{% if ci.address is string %}
-{{ ' ' ~ ci.address }}
-{% elif ci.address is sequence %}
-{{ ' ' ~ ci.address | join(' ') }}
+{% if c['initstepslew'] is defined and c['initstepslew'] != '' %}
+{% for ci in c['initstepslew'] %}
+{% if (ci['threshold'] is defined and ci['threshold'] != '') and (ci['address']
+  is defined and ci['address'] != '') %}
+{{ 'initstepslew ' ~ ci['threshold'] -}}
+{% if ci['address'] is string %}
+{{ ' ' ~ ci['address'] }}
+{% elif ci['address'] is sequence %}
+{{ ' ' ~ ci['address'] | join(' ') }}
 {% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.manual is defined and c.manual == 'true' %}
+{% if c['manual'] is defined and c['manual'] == 'true' %}
 {{ 'manual' }}
 {% endif %}
-{% if c.acquisitionport is defined and c.acquisitionport != '' %}
-{{ 'acquisitionport ' ~ c.acquisitionport }}
+{% if c['acquisitionport'] is defined and c['acquisitionport'] != '' %}
+{{ 'acquisitionport ' ~ c['acquisitionport'] }}
 {% endif %}
-{% if c.bindacqaddress is defined and c.bindacqaddress |
+{% if c['bindacqaddress'] is defined and c['bindacqaddress'] |
   ansible.utils.ipaddr('address') %}
-{{ 'bindacqaddress ' ~ c.bindacqaddress }}
+{{ 'bindacqaddress ' ~ c['bindacqaddress'] }}
 {% endif %}
-{% if c.dumpdir is defined and c.dumpdir != '' %}
-{{ 'dumpdir ' ~ c.dumpdir }}
+{% if c['dumpdir'] is defined and c['dumpdir'] != '' %}
+{{ 'dumpdir ' ~ c['dumpdir'] }}
 {% endif %}
-{% if c.maxsamples is defined and c.maxsamples != '' %}
-{{ 'maxsamples ' ~ c.maxsamples }}
+{% if c['maxsamples'] is defined and c['maxsamples'] != '' %}
+{{ 'maxsamples ' ~ c['maxsamples'] }}
 {% endif %}
-{% if c.minsamples is defined and c.minsamples != '' %}
-{{ 'minsamples ' ~ c.minsamples }}
+{% if c['minsamples'] is defined and c['minsamples'] != '' %}
+{{ 'minsamples ' ~ c['minsamples'] }}
 {% endif %}
-{% if c.combinelimit is defined and c.combinelimit != '' %}
-{{ 'combinelimit ' ~ c.combinelimit }}
+{% if c['combinelimit'] is defined and c['combinelimit'] != '' %}
+{{ 'combinelimit ' ~ c['combinelimit'] }}
 {% endif %}
-{% if c.maxdistance is defined and c.maxdistance != '' %}
-{{ 'maxdistance ' ~ c.maxdistance }}
+{% if c['maxdistance'] is defined and c['maxdistance'] != '' %}
+{{ 'maxdistance ' ~ c['maxdistance'] }}
 {% endif %}
-{% if c.maxjitter is defined and c.maxjitter != '' %}
-{{ 'maxjitter ' ~ c.maxjitter }}
+{% if c['maxjitter'] is defined and c['maxjitter'] != '' %}
+{{ 'maxjitter ' ~ c['maxjitter'] }}
 {% endif %}
-{% if c.minsources is defined and c.minsources != '' %}
-{{ 'minsources ' ~ c.minsources }}
+{% if c['minsources'] is defined and c['minsources'] != '' %}
+{{ 'minsources ' ~ c['minsources'] }}
 {% endif %}
-{% if c.reselectdist is defined and c.reselectdist != '' %}
-{{ 'reselectdist ' ~ c.reselectdist }}
+{% if c['reselectdist'] is defined and c['reselectdist'] != '' %}
+{{ 'reselectdist ' ~ c['reselectdist'] }}
 {% endif %}
-{% if c.stratumweight is defined and c.stratumweight != '' %}
-{{ 'stratumweight ' ~ c.stratumweight }}
+{% if c['stratumweight'] is defined and c['stratumweight'] != '' %}
+{{ 'stratumweight ' ~ c['stratumweight'] }}
 {% endif %}
-{% if c.corrtimeratio is defined and c.corrtimeratio != '' %}
-{{ 'corrtimeratio ' ~ c.corrtimeratio }}
+{% if c['corrtimeratio'] is defined and c['corrtimeratio'] != '' %}
+{{ 'corrtimeratio ' ~ c['corrtimeratio'] }}
 {% endif %}
-{% if c.driftfile is defined and c.driftfile != '' %}
-{{ 'driftfile ' ~ c.driftfile }}
+{% if c['driftfile'] is defined and c['driftfile'] != '' %}
+{{ 'driftfile ' ~ c['driftfile'] }}
 {% endif %}
-{% if c.fallbackdrift is defined and c.fallbackdrift != '' %}
-{{ 'fallbackdrift ' ~ c.fallbackdrift }}
+{% if c['fallbackdrift'] is defined and c['fallbackdrift'] != '' %}
+{{ 'fallbackdrift ' ~ c['fallbackdrift'] }}
 {% endif %}
-{% if c.leapsecmode is defined and c.leapsecmode in ['system', 'step', 'slew',
-  'ignore'] %}
-{{ 'leapsecmode ' ~ c.leapsecmode }}
+{% if c['leapsecmode'] is defined and c['leapsecmode'] in ['system', 'step',
+  'slew', 'ignore'] %}
+{{ 'leapsecmode ' ~ c['leapsecmode'] }}
 {% endif %}
-{% if c.leapsectz is defined and c.leapsectz != '' %}
-{{ 'leapsectz ' ~ c.leapsectz }}
+{% if c['leapsectz'] is defined and c['leapsectz'] != '' %}
+{{ 'leapsectz ' ~ c['leapsectz'] }}
 {% endif %}
-{% if c.makestep is defined and c.makestep != '' %}
-{% for cm in c.makestep %}
-{% if (cm.threshold is defined and cm.threshold != '') and (cm.limit is defined
-  and cm.limit != '') %}
-{{ 'makestep ' ~ cm.threshold ~ ' ' ~ cm.limit }}
-{% endif %}
-{% endfor %}
-{% endif %}
-{% if c.maxchange is defined and c.maxchange != '' %}
-{% for cm in c.maxchange %}
-{% if (cm.offset is defined and cm.offset != '') and
-      (cm.start is defined and cm.start != '') and
-      (cm.ignore is defined and cm.ignore != '') %}
-{{ 'maxchange ' ~ cm.offset ~ ' ' ~ cm.start ~ ' ' ~ cm.ignore }}
+{% if c['makestep'] is defined and c['makestep'] != '' %}
+{% for cm in c['makestep'] %}
+{% if (cm['threshold'] is defined and cm['threshold'] != '') and (cm['limit'] is
+  defined and cm['limit'] != '') %}
+{{ 'makestep ' ~ cm['threshold'] ~ ' ' ~ cm['limit'] }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.maxclockerror is defined and c.maxclockerror != '' %}
-{{ 'maxclockerror ' ~ c.maxclockerror }}
-{% endif %}
-{% if c.maxdrift is defined and c.maxdrift != '' %}
-{{ 'maxdrift ' ~ c.maxdrift }}
-{% endif %}
-{% if c.maxupdateskew is defined and c.maxupdateskew != '' %}
-{{ 'maxupdateskew ' ~ c.maxupdateskew }}
-{% endif %}
-{% if c.maxslewrate is defined and c.maxslewrate != '' %}
-{{ 'maxslewrate ' ~ c.maxslewrate }}
-{% endif %}
-{% if c.access_list is defined and c.access_list != '' %}
-{% for ca in c.access_list %}
-{% if (ca.policy is defined and ca.policy in ['allow', 'deny']) and
-      (ca.address is defined and ca.address != '') %}
-{{ ca.policy ~ ' ' ~ ca.address }}
+{% if c['maxchange'] is defined and c['maxchange'] != '' %}
+{% for cm in c['maxchange'] %}
+{% if (cm['offset'] is defined and cm['offset'] != '') and
+  (cm['start'] is defined and cm['start'] != '') and
+  (cm['ignore'] is defined and cm['ignore'] != '') %}
+{{ 'maxchange ' ~ cm['offset'] ~ ' ' ~ cm['start'] ~ ' ' ~ cm['ignore'] }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.bindaddress is defined and c.bindaddress != '' %}
-{{ 'bindaddress ' ~ c.bindaddress }}
+{% if c['maxclockerror'] is defined and c['maxclockerror'] != '' %}
+{{ 'maxclockerror ' ~ c['maxclockerror'] }}
 {% endif %}
-{% if c.broadcast is defined and c.broadcast != '' %}
-{% for cb in c.broadcast %}
-{% if (cb.interval is defined and cb.interval != '') and (cb.address is defined
-  and cb.address | ansible.utils.ipaddr('address')) %}
-{{ 'broadcast ' ~ cb.interval ~ ' ' ~ cb.address -}}
-{% if cb.port is defined and cb.port != '' %}
-{{ ' ' ~ cb.port -}}
+{% if c['maxdrift'] is defined and c['maxdrift'] != '' %}
+{{ 'maxdrift ' ~ c['maxdrift'] }}
+{% endif %}
+{% if c['maxupdateskew'] is defined and c['maxupdateskew'] != '' %}
+{{ 'maxupdateskew ' ~ c['maxupdateskew'] }}
+{% endif %}
+{% if c['maxslewrate'] is defined and c['maxslewrate'] != '' %}
+{{ 'maxslewrate ' ~ c['maxslewrate'] }}
+{% endif %}
+{% if c['access_list'] is defined and c['access_list'] != '' %}
+{% for ca in c['access_list'] %}
+{% if (ca['policy'] is defined and ca['policy'] in ['allow', 'deny']) and
+  (ca['address'] is defined and ca['address'] != '') %}
+{{ ca['policy'] ~ ' ' ~ ca['address'] }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if c['bindaddress'] is defined and c['bindaddress'] != '' %}
+{{ 'bindaddress ' ~ c['bindaddress'] }}
+{% endif %}
+{% if c['broadcast'] is defined and c['broadcast'] != '' %}
+{% for cb in c['broadcast'] %}
+{% if (cb['interval'] is defined and cb['interval'] != '') and
+  (cb['address'] is defined and (cb['address'] |
+  ansible.utils.ipaddr('address'))) %}
+{{ 'broadcast ' ~ cb['interval'] ~ ' ' ~ cb['address'] -}}
+{% if cb['port'] is defined and cb['port'] != '' %}
+{{ ' ' ~ cb['port'] -}}
 {% endif %}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
-{% if c.clientloglimit is defined and c.clientloglimit != '' %}
-{{ 'clientloglimit ' ~ c.clientloglimit }}
+{% if c['clientloglimit'] is defined and c['clientloglimit'] != '' %}
+{{ 'clientloglimit ' ~ c['clientloglimit'] }}
 {% endif %}
-{% if c.noclientlog is defined and c.noclientlog == 'true' %}
+{% if c['noclientlog'] is defined and c['noclientlog'] == 'true' %}
 {{ 'noclientlog' }}
 {% endif %}
-{% if c.local is defined and c.local != '' %}
-{% for cl in c.local %}
+{% if c['local'] is defined and c['local'] != '' %}
+{% for cl in c['local'] %}
 {{ 'local' -}}
-{% if cl.stratum is defined and cl.stratum != '' %}
-{{ ' ' ~ 'stratum ' ~ cl.stratum -}}
+{% if cl['stratum'] is defined and cl['stratum'] != '' %}
+{{ ' ' ~ 'stratum ' ~ cl['stratum'] -}}
 {% endif %}
-{% if cl.distance is defined and cl.distance != '' %}
-{{ ' ' ~ 'distance ' ~ cl.distance -}}
+{% if cl['distance'] is defined and cl['distance'] != '' %}
+{{ ' ' ~ 'distance ' ~ cl['distance'] -}}
 {% endif %}
-{% if cl.orphan is defined and cl.orphan == 'true' %}
+{% if cl['orphan'] is defined and cl['orphan'] == 'true' %}
 {{ ' ' ~ 'orphan' -}}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
-{% if c.ntpsigndsocket is defined and c.ntpsigndsocket != '' %}
-{{ 'ntpsigndsocket ' ~ c.ntpsigndsocket }}
+{% if c['ntpsigndsocket'] is defined and c['ntpsigndsocket'] != '' %}
+{{ 'ntpsigndsocket ' ~ c['ntpsigndsocket'] }}
 {% endif %}
-{% if c.port is defined and c.port != '' %}
-{{ 'port ' ~ c.port }}
+{% if c['port'] is defined and c['port'] != '' %}
+{{ 'port ' ~ c['port'] }}
 {% endif %}
-{% if c.ratelimit is defined and c.ratelimit != '' %}
-{% for cr in c.ratelimit %}
+{% if c['ratelimit'] is defined and c['ratelimit'] != '' %}
+{% for cr in c['ratelimit'] %}
 {{ 'ratelimit' -}}
-{% if cr.interval is defined and cr.interval != '' %}
-{{ ' ' ~ 'interval ' ~ cr.interval -}}
+{% if cr['interval'] is defined and cr['interval'] != '' %}
+{{ ' ' ~ 'interval ' ~ cr['interval'] -}}
 {% endif %}
-{% if cr.burst is defined and cr.burst != '' %}
-{{ ' ' ~ 'burst ' ~ cr.burst -}}
+{% if cr['burst'] is defined and cr['burst'] != '' %}
+{{ ' ' ~ 'burst ' ~ cr['burst'] -}}
 {% endif %}
-{% if cr.leak is defined and cr.leak != '' %}
-{{ ' ' ~ 'leak ' ~ cr.leak -}}
+{% if cr['leak'] is defined and cr['leak'] != '' %}
+{{ ' ' ~ 'leak ' ~ cr['leak'] -}}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
-{% if c.smoothtime is defined and c.smoothtime != '' %}
-{% for cs in c.smoothtime %}
-{% if (cs.max_freq is defined and cs.max_freq != '') and (cs.max_wander is
-  defined and cs.max_wander != '') %}
-{{ 'smoothtime ' ~ cs.max_freq ~ ' ' ~ cs.max_wander -}}
-{% if cs.leaponly is defined and cs.leaponly == 'true' %}
+{% if c['smoothtime'] is defined and c['smoothtime'] != '' %}
+{% for cs in c['smoothtime'] %}
+{% if (cs['max_freq'] is defined and cs['max_freq'] != '') and
+  (cs['max_wander'] is defined and cs['max_wander'] != '') %}
+{{ 'smoothtime ' ~ cs['max_freq'] ~ ' ' ~ cs['max_wander'] -}}
+{% if cs['leaponly'] is defined and cs['leaponly'] == 'true' %}
 {{ ' ' ~ 'leaponly' -}}
 {% endif %}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
-{% if c.bindcmdaddress is defined and c.bindcmdaddress != '' %}
-{% if c.bindcmdaddress is string and c.bindcmdaddress |
+{% if c['bindcmdaddress'] is defined and c['bindcmdaddress'] != '' %}
+{% if c['bindcmdaddress'] is string and c['bindcmdaddress'] |
   ansible.utils.ipaddr('host') %}
-{{ 'bindcmdaddress ' ~ c.bindcmdaddress }}
-{% elif c.bindcmdaddress is sequence %}
-{% for cb in c.bindcmdaddress %}
+{{ 'bindcmdaddress ' ~ c['bindcmdaddress'] }}
+{% elif c['bindcmdaddress'] is sequence %}
+{% for cb in c['bindcmdaddress'] %}
 {% if cb | ansible.utils.ipaddr('host') %}
 {{ 'bindcmdaddress ' ~ cb }}
 {% endif %}
 {% endfor %}
 {% endif %}
 {% endif %}
-{% if c.cmdaccess_list is defined and c.cmdaccess_list != '' %}
-{% for ca in c.cmdaccess_list %}
-{% if (ca.policy is defined and ca.policy in ['cmdallow', 'cmddeny']) and
-      (ca.address is defined and ca.address != '') %}
-{{ ca.policy ~ ' ' ~ ca.address }}
+{% if c['cmdaccess_list'] is defined and c['cmdaccess_list'] != '' %}
+{% for ca in c['cmdaccess_list'] %}
+{% if (ca['policy'] is defined and ca['policy'] in ['cmdallow', 'cmddeny']) and
+  (ca['address'] is defined and ca['address'] != '') %}
+{{ ca['policy'] ~ ' ' ~ ca['address'] }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.cmdport is defined and c.cmdport != '' %}
-{{ 'cmdport ' ~ c.cmdport }}
+{% if c['cmdport'] is defined and c['cmdport'] != '' %}
+{{ 'cmdport ' ~ c['cmdport'] }}
 {% endif %}
-{% if c.cmdratelimit is defined and c.cmdratelimit != '' %}
-{% for cr in c.cmdratelimit %}
+{% if c['cmdratelimit'] is defined and c['cmdratelimit'] != '' %}
+{% for cr in c['cmdratelimit'] %}
 {{ 'ratelimit' -}}
-{% if cr.interval is defined and cr.interval != '' %}
-{{ ' ' ~ 'interval ' ~ cr.interval -}}
+{% if cr['interval'] is defined and cr['interval'] != '' %}
+{{ ' ' ~ 'interval ' ~ cr['interval'] -}}
 {% endif %}
-{% if cr.burst is defined and cr.burst != '' %}
-{{ ' ' ~ 'burst ' ~ cr.burst -}}
+{% if cr['burst'] is defined and cr['burst'] != '' %}
+{{ ' ' ~ 'burst ' ~ cr['burst'] -}}
 {% endif %}
-{% if cr.leak is defined and cr.leak != '' %}
-{{ ' ' ~ 'leak ' ~ cr.leak -}}
+{% if cr['leak'] is defined and cr['leak'] != '' %}
+{{ ' ' ~ 'leak ' ~ cr['leak'] -}}
 {% endif %}
 {{ '' }}
 {% endfor %}
 {% endif %}
-{% if c.hwclockfile is defined and c.hwclockfile != '' %}
-{{ 'hwclockfile ' ~ c.hwclockfile }}
+{% if c['hwclockfile'] is defined and c['hwclockfile'] != '' %}
+{{ 'hwclockfile ' ~ c['hwclockfile'] }}
 {% endif %}
-{% if c.rtcautotrim is defined and c.rtcautotrim != '' %}
-{{ 'rtcautotrim ' ~ c.rtcautotrim }}
+{% if c['rtcautotrim'] is defined and c['rtcautotrim'] != '' %}
+{{ 'rtcautotrim ' ~ c['rtcautotrim'] }}
 {% endif %}
-{% if c.rtcdevice is defined and c.rtcdevice != '' %}
-{{ 'rtcdevice ' ~ c.rtcdevice }}
+{% if c['rtcdevice'] is defined and c['rtcdevice'] != '' %}
+{{ 'rtcdevice ' ~ c['rtcdevice'] }}
 {% endif %}
-{% if c.rtcfile is defined and c.rtcfile != '' %}
-{{ 'rtcfile ' ~ c.rtcfile }}
+{% if c['rtcfile'] is defined and c['rtcfile'] != '' %}
+{{ 'rtcfile ' ~ c['rtcfile'] }}
 {% endif %}
-{% if c.rtconutc is defined and c.rtconutc == 'true' %}
+{% if c['rtconutc'] is defined and c['rtconutc'] == 'true' %}
 {{ 'rtconutc' }}
 {% endif %}
-{% if c.rtcsync is defined and c.rtcsync == 'true' %}
+{% if c['rtcsync'] is defined and c['rtcsync'] == 'true' %}
 {{ 'rtcsync' }}
 {% endif %}
-{% if c.log is defined and c.log != '' %}
+{% if c['log'] is defined and c['log'] != '' %}
 {{ 'log' -}}
-{% for cl in c.log %}
+{% for cl in c['log'] %}
 {% if cl != '' and cl in ['rawmeasurements', 'measurements', 'statistics',
   'tracking', 'rtc', 'refclocks', 'tempcomp'] %}
 {{ ' ' ~ cl -}}
@@ -236,39 +237,39 @@
 {% endfor %}
 {{ '' }}
 {% endif %}
-{% if c.logbanner is defined and c.logbanner != '' %}
-{{ 'logbanner ' ~ c.logbanner }}
+{% if c['logbanner'] is defined and c['logbanner'] != '' %}
+{{ 'logbanner ' ~ c['logbanner'] }}
 {% endif %}
-{% if c.logchange is defined and c.logchange != '' %}
-{{ 'logchange ' ~ c.logchange }}
+{% if c['logchange'] is defined and c['logchange'] != '' %}
+{{ 'logchange ' ~ c['logchange'] }}
 {% endif %}
-{% if c.logdir is defined and c.logdir != '' %}
-{{ 'logdir ' ~ c.logdir }}
+{% if c['logdir'] is defined and c['logdir'] != '' %}
+{{ 'logdir ' ~ c['logdir'] }}
 {% endif %}
-{% if c.mailonchange is defined and c.mailonchange != '' %}
-{% for cm in c.mailonchange %}
-{% if cm.address is defined and cm.address is
+{% if c['mailonchange'] is defined and c['mailonchange'] != '' %}
+{% for cm in c['mailonchange'] %}
+{% if cm['address'] is defined and cm['address'] is
   match('^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$') %}
-{{ 'mailonchange ' ~ cm.address -}}
-{% if cm.threshold is defined and cm.threshold != '' %}
-{{ ' ' ~ cm.threshold -}}
+{{ 'mailonchange ' ~ cm['address'] -}}
+{% if cm['threshold'] is defined and cm['threshold'] != '' %}
+{{ ' ' ~ cm['threshold'] -}}
 {% endif %}
 {% endif %}
 {% endfor %}
 {{ '' }}
 {% endif %}
-{% if c.keyfile is defined and c.keyfile != '' %}
-{{ 'keyfile ' ~ c.keyfile }}
+{% if c['keyfile'] is defined and c['keyfile'] != '' %}
+{{ 'keyfile ' ~ c['keyfile'] }}
 {% endif %}
-{% if c.lock_all is defined and c.lock_all == 'true' %}
+{% if c['lock_all'] is defined and c['lock_all'] == 'true' %}
 {{ 'lock_all' }}
 {% endif %}
-{% if c.pidfile is defined and c.pidfile != '' %}
-{{ 'pidfile ' ~ c.pidfile }}
+{% if c['pidfile'] is defined and c['pidfile'] != '' %}
+{{ 'pidfile ' ~ c['pidfile'] }}
 {% endif %}
-{% if c.sched_priority is defined and c.sched_priority != '' %}
-{{ 'sched_priority ' ~ c.sched_priority }}
+{% if c['sched_priority'] is defined and c['sched_priority'] != '' %}
+{{ 'sched_priority ' ~ c['sched_priority'] }}
 {% endif %}
-{% if c.user is defined and c.user != '' %}
-{{ 'user ' ~ c.user }}
+{% if c['user'] is defined and c['user'] != '' %}
+{{ 'user ' ~ c['user'] }}
 {% endif %}

@@ -2,39 +2,39 @@
 {{ '# ' + ansible_managed }}
 {{ '# Do not edit manually' }}
 
-{% for c in vars['chrony_instance_settings'] %}
-{% if c.pool is defined and c.pool != '' %}
-{% for h in c.pool %}
-{% if h.address is defined and ((h.address |
-  ansible.utils.ipaddr('address')) or (h.address | urlsplit('path'))) %}
-{{ 'pool ' +  h.address -}}
+{% for c in vars['chrony_settings'] %}
+{% if c['pool'] is defined and c['pool'] != '' %}
+{% for h in c['pool'] %}
+{% if h['address'] is defined and ((h['address'] |
+  ansible.utils.ipaddr('address')) or (h['address'] | urlsplit('path'))) %}
+{{ 'pool ' +  h['address'] -}}
 {% include 'chrony_host.j2' %}
 {{ '' }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.server is defined and c.server != '' %}
-{% for h in c.server %}
-{% if h.address is defined and ((h.address |
-  ansible.utils.ipaddr('address')) or (h.address | urlsplit('path'))) %}
-{{ 'server ' +  h.address -}}
+{% if c['server'] is defined and c['server'] != '' %}
+{% for h in c['server'] %}
+{% if h['address'] is defined and ((h['address'] |
+  ansible.utils.ipaddr('address')) or (h['address'] | urlsplit('path'))) %}
+{{ 'server ' +  h['address'] -}}
 {% include 'chrony_host.j2' %}
 {{ '' }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.peer is defined and c.peer != '' %}
-{% for h in c.peer %}
-{% if h.address is defined and ((h.address |
-  ansible.utils.ipaddr('address')) or (h.address | urlsplit('path'))) %}
-{{ 'peer ' +  h.address -}}
+{% if c['peer'] is defined and c['peer'] != '' %}
+{% for h in c['peer'] %}
+{% if h['address'] is defined and ((h['address'] |
+  ansible.utils.ipaddr('address')) or (h['address'] | urlsplit('path'))) %}
+{{ 'peer ' +  h['address'] -}}
 {% include 'chrony_host.j2' %}
 {{ '' }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if c.refclock is defined and c.refclock != '' %}
-{% for r in c.refclock %}
+{% if c['refclock'] is defined and c['refclock'] != '' %}
+{% for r in c['refclock'] %}
 {% include 'chrony_refclock.j2' %}
 {{ '' }}
 {% endfor %}

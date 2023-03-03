@@ -1,6 +1,8 @@
 ---
-- import_tasks: "pre_requisite.yml"
-- include_tasks: "packages.yml"
+- ansible.builtin.import_tasks:
+    file: "pre_requisite.yml"
+- ansible.builtin.include_tasks:
+    file: "packages.yml"
   when:
     - "hostvars[inventory_hostname]['chrony'] is defined"
     - "hostvars[inventory_hostname]['chrony'] != ''"
@@ -10,7 +12,8 @@
        community.general.json_query(vars['chrony_install_package']) == 'true'"
   vars:
     chrony_install_package: "[] | map(&install_package || 'false', @) | [0]"
-- include_tasks: "deploy_chrony.yml"
+- ansible.builtin.include_tasks:
+    file: "deploy_chrony.yml"
   when:
-    - "vars['chrony_instance_settings'] is defined"
-    - "vars['chrony_instance_settings'] != ''"
+    - "vars['chrony_settings'] is defined"
+    - "vars['chrony_settings'] != ''"
