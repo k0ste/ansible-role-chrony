@@ -20,6 +20,9 @@ chrony:
 # 'present' (do nothing if package is already installed) or 'latest' (always
 # upgrade to last version)
   package_state: 'latest'
+# Add override to chronyd.service for network-online compatibility
+# Wit
+  systemd_network: 'true'
   settings:
 # The server directive specifies an NTP server which can be used as a time
 # source. The client-server relationship is strictly hierarchical - a client

@@ -2,13 +2,35 @@
 - name: "chrony | Deploy chrony configuration"
   ansible.builtin.template:
     src: "chrony.j2"
-    dest: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] +
-      '/chrony.conf' }}"
+    dest: "{{ hostvars[inventory_hostname]['chrony_dest'] + '/chrony.conf' }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  when:
+    - "vars['chrony_settings'] is defined"
+    - "vars['chrony_settings'] != []"
+  notify:
+    - "Restart chrony"
+- name: "chrony | Deploy chrony service configuration"
+  ansible.builtin.template:
+    src: "chrony_service.j2"
+    dest: "{{ vars['chrony_systemd_dir'] + '/' +
+      hostvars[inventory_hostname]['chrony_service'] + '.conf' }}"
     owner: "root"
     group: "root"
     mode: "0644"
   notify:
+    - "Daemon reload"
     - "Restart chrony"
+  when:
+    - "hostvars[inventory_hostname]['chrony'] is defined"
+    - "hostvars[inventory_hostname]['chrony'] != ''"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_systemd_network']) is defined"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_systemd_network']) == 'true'"
+  vars:
+    chrony_systemd_network: "[] | map(&systemd_network || 'false', @) | [0]"
 - name: "chrony | Enable chrony service"
   ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['chrony_service'] }}"

@@ -1,10 +1,18 @@
 ---
+- name: "chrony | Assert that system manager is systemd"
+  ansible.builtin.assert:
+    that:
+      - "hostvars[inventory_hostname]['ansible_service_mgr'] == 'systemd'"
+    fail_msg: "System manager is not systemd"
+    quiet: "true"
 - name: "chrony | Add the OS specific variables"
   ansible.builtin.include_vars:
     file: "{{
       hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: "chrony | Set facts about chrony role"
   ansible.builtin.set_fact:
+    chrony_systemd_dir: "{{ '/etc/systemd/system/' +
+      hostvars[inventory_hostname]['chrony_service'] + '.service.d' }}"
     chrony_settings: "{{ hostvars[inventory_hostname]['chrony'] |
       community.general.json_query('[].settings[]') }}"
     chrony_package_state: "{{ hostvars[inventory_hostname]['chrony'] |
@@ -13,15 +21,35 @@
   ansible.builtin.assert:
     that:
       - "vars['chrony_package_state'] in ['present', 'latest']"
-    msg: "'package_state' must be in 'present' or 'latest'"
+    fail_msg: "'package_state' must be in 'present' or 'latest'"
     quiet: "true"
   when:
     - "vars['chrony_package_state'] is defined"
     - "vars['chrony_package_state'] != ''"
 - name: "chrony | Create catalogs"
   ansible.builtin.file:
-    path: "{{ hostvars[inventory_hostname]['chrony_conf_dest'] }}"
+    path: "{{ hostvars[inventory_hostname]['chrony_dest'] }}"
     state: "directory"
     owner: "root"
     group: "root"
     mode: "0755"
+  when:
+    - "vars['chrony_settings'] is defined"
+    - "vars['chrony_settings'] != ''"
+- name: "chrony | Create override systemd service directory"
+  ansible.builtin.file:
+    path: "{{ vars['chrony_systemd_dir'] }}"
+    state: "directory"
+    group: "root"
+    owner: "root"
+    mode: "0755"
+    recurse: "no"
+  when:
+    - "hostvars[inventory_hostname]['chrony'] is defined"
+    - "hostvars[inventory_hostname]['chrony'] != ''"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_systemd_network']) is defined"
+    - "hostvars[inventory_hostname]['chrony'] |
+       community.general.json_query(vars['chrony_systemd_network']) == 'true'"
+  vars:
+    chrony_systemd_network: "[] | map(&systemd_network || 'false', @) | [0]"
